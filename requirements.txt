@@ -16,8 +16,8 @@ Please provide the github link consisting of the source code along with the maps
 
 
 To Do:
-1. Download 5 shapfiles from the extract website ()
-   ||- NY, Miami, LA, DC, Fuzhou ()
+1. Download 5 shapfiles from the extract website (/)
+   ||- Baghdad, Beijing, Cairo, Cambridge, Cork (/)
 2. Install geopandas and learn how to use it ()
 3. Create the MapMaker class ()
    ||- Take in the paths of the shapefiles as an array ()
