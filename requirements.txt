@@ -1,0 +1,27 @@
+Task Description
+
+In this task you would be creating maps (using Python). 
+Most of the maps that you see online are created using shapefiles. 
+There are different types of shapefiles including, green-cover, 
+water bodies and roads. You can download all the relevant shapefiles 
+from https://extract.bbbike.org/ for any city that you want.
+
+Now, to plot the shapefiles, you would need the geopandas library. 
+With the geopandas library installed, you can read the shapefile, 
+and plot it using the plot function.
+
+Plot the shapefiles for 5 cities.
+
+Please provide the github link consisting of the source code along with the maps that you have created.
+
+
+To Do:
+1. Download 5 shapfiles from the extract website ()
+   ||- NY, Miami, LA, DC, Fuzhou ()
+2. Install geopandas and learn how to use it ()
+3. Create the MapMaker class ()
+   ||- Take in the paths of the shapefiles as an array ()
+   ||- Cycle through them and plot them ()
+4. Use the MapMaker class to make the maps ()
+5. Take pictures of the maps ()
+6. Share the github repo ()
