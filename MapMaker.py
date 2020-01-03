@@ -7,13 +7,11 @@ import os
 class MapMaker:
 
     colors = {
-        "buildings": "#B5B5B5",
-        "landuse": "#30CA1F",
+        "buildings": "#664910",
+        "landuse": "#2aba1a",
         "natural": "#7DF470",
-        "places": "#009DBC",
-        "points": "#DFF01D",
-        "railways": "#BA7701",
-        "roads": "#EAEAEA",
+        "railways": "#40403f",
+        "roads": "#86b315",
         "waterways": "#007AF4"
     }
 
@@ -27,15 +25,17 @@ class MapMaker:
             city_map_files = []
             city_path = os.path.join(self.shape_files_dir, city, "shape")
             for fil in os.listdir(city_path):
-                if os.path.splitext(fil)[1] == ".shp":
+                file_name, ext = os.path.splitext(fil)
+                if ext == ".shp" and file_name != "points" and file_name != "places":
                     city_map_files.append(fil)
 
             city_data = {
                 "city_name": city_name,
-                "city_map_files": city_map_files,
+                "city_map_files": sorted(city_map_files, reverse=True),
                 "city_path": city_path
             }
 
+            print(city_data)
             city_maps.append(city_data)
 
         return city_maps
@@ -48,8 +48,15 @@ class MapMaker:
                 path = os.path.join(city_data["city_path"], map_file)
                 loc, _ = city_loc = os.path.splitext(map_file)
                 gdf = gpd.read_file(path)
-                gdf["color"] = [MapMaker.colors[loc]
-                                for i in gdf["osm_id"]]
+
+                # filtering the important stuff
+                if map_file == "roads.shp":
+                    gdf = gdf.loc[gdf["type"] == "primary"]
+                elif map_file == "buildings.shp":
+                    gdf = gdf.loc[gdf["type"] == "residential"]
+                elif map_file == "natural.shp":
+                    gdf = gdf.loc[gdf["type"] == "water"]
+                gdf["color"] = [MapMaker.colors[loc] for i in gdf["osm_id"]]
                 gdf_objects.append(gdf)
             concat_map = pd.concat(gdf_objects, sort=True)
             concat_gdf = gpd.GeoDataFrame(concat_map)
